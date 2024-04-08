@@ -31,6 +31,19 @@
     <loc>https://iyumashiro.github.io/zh-cn/p/test-chinese/</loc>
     <lastmod>2024-04-08T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://iyumashiro.github.io/zh-cn/p/hi/</loc>
+    <lastmod>2024-04-08T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://iyumashiro.github.io/p/hi/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://iyumashiro.github.io/zh-cn/p/hi/"
+                />
+  </url><url>
     <loc>https://iyumashiro.github.io/zh-cn/post/</loc>
     <lastmod>2024-04-08T00:00:00+00:00</lastmod>
     <xhtml:link
