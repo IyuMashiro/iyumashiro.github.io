@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>测试用博客 on iyuMashiro之森</title>
+        <link>https://iyumashiro.github.io/zh-cn/tags/%E6%B5%8B%E8%AF%95%E7%94%A8%E5%8D%9A%E5%AE%A2/</link>
+        <description>Recent content in 测试用博客 on iyuMashiro之森</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>iyuMashiro</copyright>
+        <lastBuildDate>Mon, 08 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://iyumashiro.github.io/zh-cn/tags/%E6%B5%8B%E8%AF%95%E7%94%A8%E5%8D%9A%E5%AE%A2/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Chinese Test</title>
+        <link>https://iyumashiro.github.io/zh-cn/p/test-chinese/</link>
+        <pubDate>Mon, 08 Apr 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://iyumashiro.github.io/zh-cn/p/test-chinese/</guid>
+        <description>&lt;img src="https://iyumashiro.github.io/img/miku.jpg" alt="Featured image of post Chinese Test" /&gt;&lt;p&gt;test
+&lt;img src=&#34;https://iyumashiro.github.io/img/miku.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;miku.png&#34;
+	
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
