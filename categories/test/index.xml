@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Test on iyuMashiro&#39;s forest</title>
-        <link>https://iyumashiro.github.io/categories/test/</link>
-        <description>Recent content in Test on iyuMashiro&#39;s forest</description>
+        <title>Test on iyuMashiro之森</title>
+        <link>http://localhost:1313/categories/test/</link>
+        <description>Recent content in Test on iyuMashiro之森</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>en</language>
+        <language>zh-cn</language>
         <copyright>iyuMashiro</copyright>
-        <lastBuildDate>Mon, 08 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://iyumashiro.github.io/categories/test/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 08 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/test/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>English Test</title>
-        <link>https://iyumashiro.github.io/p/test-english/</link>
+        <link>http://localhost:1313/p/test-english/</link>
         <pubDate>Mon, 08 Apr 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://iyumashiro.github.io/p/test-english/</guid>
-        <description>&lt;img src="https://iyumashiro.github.io/img/kano.png" alt="Featured image of post English Test" /&gt;&lt;p&gt;test&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://iyumashiro.github.io/img/kano.png&#34;
+        <guid>http://localhost:1313/p/test-english/</guid>
+        <description>&lt;img src="http://localhost:1313/img/kano.png" alt="Featured image of post English Test" /&gt;&lt;p&gt;test&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/img/kano.png&#34;
 	
 	
 	

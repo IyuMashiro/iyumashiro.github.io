@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Tags on iyuMashiro&#39;s forest</title>
+        <title>Tags on iyuMashiro之森</title>
         <link>https://iyumashiro.github.io/tags/</link>
-        <description>Recent content in Tags on iyuMashiro&#39;s forest</description>
+        <description>Recent content in Tags on iyuMashiro之森</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>en</language>
+        <language>zh-cn</language>
         <copyright>iyuMashiro</copyright>
         <lastBuildDate>Mon, 08 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://iyumashiro.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Test Blog</title>
-        <link>https://iyumashiro.github.io/tags/test-blog/</link>
+        <title>测试用博客</title>
+        <link>https://iyumashiro.github.io/tags/%E6%B5%8B%E8%AF%95%E7%94%A8%E5%8D%9A%E5%AE%A2/</link>
         <pubDate>Mon, 08 Apr 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://iyumashiro.github.io/tags/test-blog/</guid>
+        <guid>https://iyumashiro.github.io/tags/%E6%B5%8B%E8%AF%95%E7%94%A8%E5%8D%9A%E5%AE%A2/</guid>
         <description></description>
         </item>
         

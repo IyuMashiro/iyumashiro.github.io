@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>iyuMashiro&#39;s forest</title>
+        <link>https://iyumashiro.github.io/en/</link>
+        <description>Recent content on iyuMashiro&#39;s forest</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <copyright>iyuMashiro</copyright>
+        <lastBuildDate>Mon, 08 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://iyumashiro.github.io/en/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>English Test</title>
+        <link>https://iyumashiro.github.io/en/p/test-english/</link>
+        <pubDate>Mon, 08 Apr 2024 00:00:00 +0000</pubDate>
+        
+        <guid>https://iyumashiro.github.io/en/p/test-english/</guid>
+        <description>&lt;img src="https://iyumashiro.github.io/img/kano.png" alt="Featured image of post English Test" /&gt;&lt;p&gt;test&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://iyumashiro.github.io/img/kano.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;kano.png&#34;
+	
+	
+&gt;&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Archives</title>
+        <link>https://iyumashiro.github.io/en/archives/</link>
+        <pubDate>Wed, 20 May 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://iyumashiro.github.io/en/archives/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>about</title>
+        <link>https://iyumashiro.github.io/en/about/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://iyumashiro.github.io/en/about/</guid>
+        <description>&lt;p&gt;iyuMashiro&amp;rsquo;s forest record iyu&amp;rsquo;s life&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Links</title>
+        <link>https://iyumashiro.github.io/en/links/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://iyumashiro.github.io/en/links/</guid>
+        <description>&lt;p&gt;You can get other content through the following channels&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Search</title>
+        <link>https://iyumashiro.github.io/en/search/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://iyumashiro.github.io/en/search/</guid>
+        <description></description>
+        </item>
+        
+    </channel>
+</rss>
