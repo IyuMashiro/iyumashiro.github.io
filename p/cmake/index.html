@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="通过 cmake 来构建 raylib 和其相关的组件">
+<title>使用 cmake 构造 raylib</title>
+
+<link rel='canonical' href='https://iyumashiro.github.io/p/cmake/'>
+
+<link rel="stylesheet" href="/scss/style.min.8e60baf4cd3fc55968717a6e39762f4d28ed7ef6007566b6c7970ad0fe907198.css"><meta property='og:title' content="使用 cmake 构造 raylib">
+<meta property='og:description' content="通过 cmake 来构建 raylib 和其相关的组件">
+<meta property='og:url' content='https://iyumashiro.github.io/p/cmake/'>
+<meta property='og:site_name' content='iyuMashiro之森'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Cmake' /><meta property='article:tag' content='raylib' /><meta property='article:published_time' content='2025-02-04T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-02-04T00:00:00&#43;00:00'/><meta property='og:image' content='https://iyumashiro.github.io/img/kano.png' />
+<meta name="twitter:title" content="使用 cmake 构造 raylib">
+<meta name="twitter:description" content="通过 cmake 来构建 raylib 和其相关的组件"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://iyumashiro.github.io/img/kano.png' />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_huff875947ff372f5d857b9f0ebec8fc6e_2057964_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🍥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">iyuMashiro之森</a></h1>
+            <h2 class="site-description">星星发光是为了让每一个人有一天都能找到属于自己的星星。</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/IyuMashiro'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com/IyuMashiro'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>搜索</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E7%9B%B8%E5%85%B3/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>相关</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://iyumashiro.github.io/" selected>中文</option>
+                                
+                                    <option value="https://iyumashiro.github.io/en/" >English</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#raylib-概述">raylib 概述</a></li>
+    <li><a href="#本博客的目的">本博客的目的</a></li>
+    <li><a href="#开始">开始</a>
+      <ol>
+        <li><a href="#环境准备">环境准备</a></li>
+        <li><a href="#文件结构">文件结构</a></li>
+        <li><a href="#编写-cmakeliststxt">编写 CMakeLists.txt</a>
+          <ol>
+            <li><a href="#外层-cmakeliststxt">外层 CMakeLists.txt</a></li>
+            <li><a href="#src-下的-cmakeliststxt">src 下的 CMakeLists.txt</a></li>
+            <li><a href="#raylib-相关配置">raylib 相关配置</a></li>
+            <li><a href="#编写测试代码">编写测试代码</a></li>
+            <li><a href="#build">build</a></li>
+          </ol>
+        </li>
+        <li><a href="#尾">尾</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/cmake/">
+                
+                    <img src="/img/kano.png" loading="lazy" alt="Featured image of post 使用 cmake 构造 raylib" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/cmake/" >
+                Cmake
+            </a>
+        
+            <a href="/categories/raylib/" >
+                Raylib
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/cmake/">使用 cmake 构造 raylib</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            通过 cmake 来构建 raylib 和其相关的组件
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Feb 04, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 7 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="raylib-概述">
+    <a href="#raylib-%e6%a6%82%e8%bf%b0">#</a>
+    raylib 概述
+</h2><p>raylib 是一个简单易用的库，是我们可以较为简单的享受游戏编程。除此之为 raylib 的作者还提供其他的扩展组件。 <a class="link" href="https://www.raylib.com/"  target="_blank" rel="noopener"
+    >https://www.raylib.com/</a> 是 raylib 的官方网站，可以通过此网站获取更加详细的信息</p>
+<h2 id="本博客的目的">
+    <a href="#%e6%9c%ac%e5%8d%9a%e5%ae%a2%e7%9a%84%e7%9b%ae%e7%9a%84">#</a>
+    本博客的目的
+</h2><p>作者也是在机缘巧合的情况下了解到该库，经过一番体验下来，便突发奇想能否通过cmake 将raylib 作者提供的模块与 raylib 整合到一起，经过一段时间的研究终于完成简易的整合，该博客将记录整合的过程和遇到的问题</p>
+<h2 id="开始">
+    <a href="#%e5%bc%80%e5%a7%8b">#</a>
+    开始
+</h2><h3 id="环境准备">
+    <a href="#%e7%8e%af%e5%a2%83%e5%87%86%e5%a4%87">#</a>
+    环境准备
+</h3><p>1.cmake <a class="link" href="https://cmake.org/"  target="_blank" rel="noopener"
+    >https://cmake.org/</a> 下载最新版即可</p>
+<p>2.mingw <a class="link" href="https://github.com/niXman/mingw-builds-binaries/releases"  target="_blank" rel="noopener"
+    >https://github.com/niXman/mingw-builds-binaries/releases</a> </br>
+根据自己的操作系统选择对应的版本，当然你也可以选择其他的构建工具 win用户可选 posix-seh-ucrt-rt 的版本，其他版本的区别请自行查询，如果是从其他渠道下载的构建工具请一定要检查 gcc 的版本是否过低，之前作者就因 gcc 过低导致的报错，排了好一会的错误
+windows 下的指令为 gcc -v</p>
+<p>3.配置环境变量 </br>
+将 cmake 和 mingw 的 bin 路径配置到系统的环境变量中，配置环境的变量的方法请自行查找</p>
+<p>4.额外操作 </br>
+此处建议 windows 用户将 mingw32-make 复制并重命名为 make，如果你的电脑上没有安装过 visual studio 可能会不存在 msvc 等其他编译器导致报错。</p>
+<h3 id="文件结构">
+    <a href="#%e6%96%87%e4%bb%b6%e7%bb%93%e6%9e%84">#</a>
+    文件结构
+</h3><p>创建一个项目文件夹，在此文件夹中建议为如下的结构</p>
+<ul>
+<li>asset 资源文件夹</li>
+<li>build 构建文件夹</li>
+<li>includ 存放头文件</li>
+<li>lib 存放第三方库</li>
+<li>src 存放源文件</li>
+<li>CMakeLists.txt cmake 文件</li>
+</ul>
+<h3 id="编写-cmakeliststxt">
+    <a href="#%e7%bc%96%e5%86%99-cmakeliststxt">#</a>
+    编写 CMakeLists.txt
+</h3><h4 id="外层-cmakeliststxt">
+    <a href="#%e5%a4%96%e5%b1%82-cmakeliststxt">#</a>
+    外层 CMakeLists.txt
+</h4><p>即文件目录下最外层的 CMakeLists.txt 文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#指定 cmake 最低版本
+</span></span><span class="line"><span class="cl">cmake_minimum_required(VERSION 3.20)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#指定项目名称
+</span></span><span class="line"><span class="cl">project(sol)
+</span></span><span class="line"><span class="cl">#指定C++标准
+</span></span><span class="line"><span class="cl">set(CMAKE_CXX_STANDARD 20)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"># Generate compile_commands.json
+</span></span><span class="line"><span class="cl">set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#添加子目录
+</span></span><span class="line"><span class="cl">add_subdirectory(&#34;src&#34;)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中指定 cmake 最低版本中填写的版本不得高于当前使用的版本</p>
+<h4 id="src-下的-cmakeliststxt">
+    <a href="#src-%e4%b8%8b%e7%9a%84-cmakeliststxt">#</a>
+    src 下的 CMakeLists.txt
+</h4><p>首先先创建一个测试 cpp 文件
+并在 CMakeLists.txt 中添加如下配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">#设定参与编译的文件集合
+</span></span><span class="line"><span class="cl">aux_source_directory(${PROJECT_SOURCE_DIR}/src SRC)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#设定可执行文件的输出路径
+</span></span><span class="line"><span class="cl">set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#设定头文件路径
+</span></span><span class="line"><span class="cl">include_directories(${PROJECT_SOURCE_DIR}/include)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">#设定库路径
+</span></span><span class="line"><span class="cl">link_directories(${PROJECT_SOURCE_DIR}/lib)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>${PROJECT_SOURCE_DIR}
+为项目的根目录
+上方的配置定义了参与编译的文件集合、头文件路径和库路径，并设定的可执行文件输出指根目录下的bin文件夹中(没有构建时会自动创建)</p>
+<h4 id="raylib-相关配置">
+    <a href="#raylib-%e7%9b%b8%e5%85%b3%e9%85%8d%e7%bd%ae">#</a>
+    raylib 相关配置
+</h4><p>根据官方项目中 CMakeLists.txt 的示例我做了如下整合与修改</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">set</span><span class="p">(</span><span class="n">RAYLIB_VERSION</span> <span class="mf">5.5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">find_package</span><span class="p">(</span><span class="n">raylib</span> <span class="o">$</span><span class="p">{</span><span class="n">RAYLIB_VERSION</span><span class="p">}</span> <span class="n">QUIET</span><span class="p">)</span> <span class="c1"># QUIET or REQUIRED</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">NOT</span> <span class="n">raylib_FOUND</span><span class="p">)</span> <span class="c1"># If there&#39;s none, fetch and build raylib</span>
+</span></span><span class="line"><span class="cl">  <span class="n">include</span><span class="p">(</span><span class="n">FetchContent</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">FetchContent_Declare</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">raylib</span>
+</span></span><span class="line"><span class="cl">    <span class="n">DOWNLOAD_EXTRACT_TIMESTAMP</span> <span class="n">OFF</span>
+</span></span><span class="line"><span class="cl">    <span class="n">URL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">raysan5</span><span class="o">/</span><span class="n">raylib</span><span class="o">/</span><span class="n">archive</span><span class="o">/</span><span class="n">refs</span><span class="o">/</span><span class="n">tags</span><span class="o">/$</span><span class="p">{</span><span class="n">RAYLIB_VERSION</span><span class="p">}</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">FetchContent_GetProperties</span><span class="p">(</span><span class="n">raylib</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">NOT</span> <span class="n">raylib_POPULATED</span><span class="p">)</span> <span class="c1"># Have we downloaded raylib yet?</span>
+</span></span><span class="line"><span class="cl">    <span class="n">set</span><span class="p">(</span><span class="n">FETCHCONTENT_QUIET</span> <span class="n">NO</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">FetchContent_MakeAvailable</span><span class="p">(</span><span class="n">raylib</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">set</span><span class="p">(</span><span class="n">BUILD_EXAMPLES</span> <span class="n">OFF</span> <span class="n">CACHE</span> <span class="n">BOOL</span> <span class="s2">&#34;&#34;</span> <span class="n">FORCE</span><span class="p">)</span> <span class="c1"># don&#39;t build the supplied examples</span>
+</span></span><span class="line"><span class="cl">  <span class="n">endif</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">endif</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">set</span><span class="p">(</span><span class="n">RAYGUI_VERSION</span> <span class="mf">4.0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">find_package</span><span class="p">(</span><span class="n">raygui</span> <span class="o">$</span><span class="p">{</span><span class="n">RAYGUI_VERSION</span><span class="p">}</span> <span class="n">QUIET</span><span class="p">)</span> <span class="c1"># QUIET or REQUIRED</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">NOT</span> <span class="n">raygui_FOUND</span><span class="p">)</span> <span class="c1"># If there&#39;s none, fetch and build raylib</span>
+</span></span><span class="line"><span class="cl">  <span class="n">include</span><span class="p">(</span><span class="n">FetchContent</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">FetchContent_Declare</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">raygui</span>
+</span></span><span class="line"><span class="cl">    <span class="n">DOWNLOAD_EXTRACT_TIMESTAMP</span> <span class="n">OFF</span>
+</span></span><span class="line"><span class="cl">    <span class="n">URL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">raysan5</span><span class="o">/</span><span class="n">raygui</span><span class="o">/</span><span class="n">archive</span><span class="o">/</span><span class="n">refs</span><span class="o">/</span><span class="n">heads</span><span class="o">/</span><span class="n">master</span><span class="o">.</span><span class="n">zip</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">FetchContent_GetProperties</span><span class="p">(</span><span class="n">raygui</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">NOT</span> <span class="n">raygui_POPULATED</span><span class="p">)</span> <span class="c1"># Have we downloaded raylib yet?</span>
+</span></span><span class="line"><span class="cl">    <span class="n">set</span><span class="p">(</span><span class="n">FETCHCONTENT_QUIET</span> <span class="n">NO</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">FetchContent_MakeAvailable</span><span class="p">(</span><span class="n">raygui</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">set</span><span class="p">(</span><span class="n">BUILD_RAYGUI_EXAMPLES</span> <span class="n">OFF</span> <span class="n">CACHE</span> <span class="n">BOOL</span> <span class="s2">&#34;&#34;</span> <span class="n">FORCE</span><span class="p">)</span> <span class="c1"># don&#39;t build the supplied examples</span>
+</span></span><span class="line"><span class="cl">    <span class="n">add_subdirectory</span><span class="p">(</span><span class="o">$</span><span class="p">{</span><span class="n">raygui_SOURCE_DIR</span><span class="p">}</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span><span class="n">CMake</span> <span class="o">$</span><span class="p">{</span><span class="n">raygui_BINARY_DIR</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="n">endif</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">endif</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">set</span><span class="p">(</span><span class="n">RRES_VERSION</span> <span class="mf">1.2</span><span class="o">.</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">find_package</span><span class="p">(</span><span class="n">rres</span> <span class="o">$</span><span class="p">{</span><span class="n">RRES_VERSION</span><span class="p">}</span> <span class="n">QUIET</span><span class="p">)</span> <span class="c1"># QUIET or REQUIRED</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">NOT</span> <span class="n">rres_FOUND</span><span class="p">)</span> <span class="c1"># If there&#39;s none, fetch and build raylib</span>
+</span></span><span class="line"><span class="cl">  <span class="n">include</span><span class="p">(</span><span class="n">FetchContent</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">FetchContent_Declare</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rres</span>
+</span></span><span class="line"><span class="cl">    <span class="n">DOWNLOAD_EXTRACT_TIMESTAMP</span> <span class="n">OFF</span>
+</span></span><span class="line"><span class="cl">    <span class="n">URL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">raysan5</span><span class="o">/</span><span class="n">rres</span><span class="o">/</span><span class="n">archive</span><span class="o">/</span><span class="n">refs</span><span class="o">/</span><span class="n">heads</span><span class="o">/</span><span class="n">master</span><span class="o">.</span><span class="n">zip</span>
+</span></span><span class="line"><span class="cl">  <span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="n">FetchContent_GetProperties</span><span class="p">(</span><span class="n">rres</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">NOT</span> <span class="n">rres_POPULATED</span><span class="p">)</span> <span class="c1"># Have we downloaded raylib yet?</span>
+</span></span><span class="line"><span class="cl">    <span class="n">set</span><span class="p">(</span><span class="n">FETCHCONTENT_QUIET</span> <span class="n">NO</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">FetchContent_MakeAvailable</span><span class="p">(</span><span class="n">rres</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">set</span><span class="p">(</span><span class="n">BUILD_RRES_EXAMPLES</span> <span class="n">OFF</span> <span class="n">CACHE</span> <span class="n">BOOL</span> <span class="s2">&#34;&#34;</span> <span class="n">FORCE</span><span class="p">)</span> <span class="c1"># don&#39;t build the supplied examples</span>
+</span></span><span class="line"><span class="cl">    <span class="n">add_subdirectory</span><span class="p">(</span><span class="o">$</span><span class="p">{</span><span class="n">rres_SOURCE_DIR</span><span class="p">}</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span><span class="n">CMake</span> <span class="o">$</span><span class="p">{</span><span class="n">rres_BINARY_DIR</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">  <span class="n">endif</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">endif</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">option</span><span class="p">(</span><span class="n">SUPPORT_FILEFORMAT_WAV</span> <span class="s2">&#34;WAV Support&#34;</span> <span class="n">TRUE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">option</span><span class="p">(</span><span class="n">SUPPORT_FILEFORMAT_OGG</span> <span class="s2">&#34;OGG Support&#34;</span> <span class="n">TRUE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">option</span><span class="p">(</span><span class="n">SUPPORT_FILEFORMAT_MP3</span> <span class="s2">&#34;MP3 Support&#34;</span> <span class="n">TRUE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">option</span><span class="p">(</span><span class="n">SUPPORT_FILEFORMAT_QOA</span> <span class="s2">&#34;QOA Support&#34;</span> <span class="n">TRUE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">option</span><span class="p">(</span><span class="n">SUPPORT_FILEFORMAT_FLAC</span> <span class="s2">&#34;FLAC Support&#34;</span> <span class="n">TRUE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">option</span><span class="p">(</span><span class="n">SUPPORT_FILEFORMAT_XM</span> <span class="s2">&#34;XM Support&#34;</span> <span class="n">TRUE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">option</span><span class="p">(</span><span class="n">SUPPORT_FILEFORMAT_MOD</span> <span class="s2">&#34;MOD Support&#34;</span> <span class="n">TRUE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">file</span><span class="p">(</span><span class="n">COPY</span> <span class="o">$</span><span class="p">{</span><span class="n">PROJECT_SOURCE_DIR</span><span class="p">}</span><span class="o">/</span><span class="n">include</span><span class="o">/</span><span class="n">rres</span><span class="o">/</span><span class="n">rres</span><span class="o">-</span><span class="n">raylib</span><span class="o">.</span><span class="n">h</span> <span class="n">DESTINATION</span> <span class="o">$</span><span class="p">{</span><span class="n">rres_SOURCE_DIR</span><span class="p">}</span><span class="o">/</span><span class="n">src</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Our Project</span>
+</span></span><span class="line"><span class="cl"><span class="n">add_executable</span><span class="p">(</span><span class="o">$</span><span class="p">{</span><span class="n">PROJECT_NAME</span><span class="p">}</span> <span class="o">$</span><span class="p">{</span><span class="n">SRC</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#set(raylib_VERBOSE 1)</span>
+</span></span><span class="line"><span class="cl"><span class="n">target_link_libraries</span><span class="p">(</span><span class="o">$</span><span class="p">{</span><span class="n">PROJECT_NAME</span><span class="p">}</span> <span class="n">raylib</span> <span class="n">raygui</span> <span class="n">rres</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Web Configurations</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">$</span><span class="p">{</span><span class="n">PLATFORM</span><span class="p">}</span> <span class="n">STREQUAL</span> <span class="s2">&#34;Web&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">set_target_properties</span><span class="p">(</span><span class="o">$</span><span class="p">{</span><span class="n">PROJECT_NAME</span><span class="p">}</span> <span class="n">PROPERTIES</span> <span class="n">SUFFIX</span> <span class="s2">&#34;.html&#34;</span><span class="p">)</span> <span class="c1"># Tell Emscripten to build an example.html file.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">set</span><span class="p">(</span><span class="n">CMAKE_EXE_LINKER_FLAGS</span> <span class="s2">&#34;${CMAKE_EXE_LINKER_FLAGS} -s USE_GLFW=3 -s ASSERTIONS=1 -s WASM=1 -s ASYNCIFY -s GL_ENABLE_GET_PROC_ADDRESS=1&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">endif</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Checks if OSX and links appropriate frameworks (Only required on MacOS)</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">APPLE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">target_link_libraries</span><span class="p">(</span><span class="o">$</span><span class="p">{</span><span class="n">PROJECT_NAME</span><span class="p">}</span> <span class="s2">&#34;-framework IOKit&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">target_link_libraries</span><span class="p">(</span><span class="o">$</span><span class="p">{</span><span class="n">PROJECT_NAME</span><span class="p">}</span> <span class="s2">&#34;-framework Cocoa&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">target_link_libraries</span><span class="p">(</span><span class="o">$</span><span class="p">{</span><span class="n">PROJECT_NAME</span><span class="p">}</span> <span class="s2">&#34;-framework OpenGL&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">endif</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>关键在于 find_package 的部分。如果没有找到对应的包，将会自动代码中配置的包，其中raudio 已经被作者整合到 raylib 中 ，故只需要下载 raylib、raygui和rres即可。</p>
+<h4 id="编写测试代码">
+    <a href="#%e7%bc%96%e5%86%99%e6%b5%8b%e8%af%95%e4%bb%a3%e7%a0%81">#</a>
+    编写测试代码
+</h4><p>注意如果使用的 cpp 代码需要对 rres-raylib.h 头文件做出一定的修改否则编译报错
+修改如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="o">//</span><span class="n">line</span> <span class="mi">567</span>
+</span></span><span class="line"><span class="cl"><span class="n">crypto_argon2_inputs</span> <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="o">.</span><span class="k">pass</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="n">uint8_t</span> <span class="o">*</span><span class="p">)</span><span class="n">rresGetCipherPassword</span><span class="p">(),</span> <span class="o">//</span> <span class="n">User</span> <span class="n">password</span>
+</span></span><span class="line"><span class="cl"><span class="o">.</span><span class="n">salt</span> <span class="o">=</span> <span class="n">salt</span><span class="p">,</span> <span class="o">//</span> <span class="n">Salt</span> <span class="k">for</span> <span class="n">the</span> <span class="n">password</span>
+</span></span><span class="line"><span class="cl"><span class="o">.</span><span class="n">pass_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">uint32_t</span><span class="p">)</span><span class="n">strlen</span><span class="p">(</span><span class="n">rresGetCipherPassword</span><span class="p">()),</span> <span class="o">//</span> <span class="n">Password</span> <span class="n">length</span>
+</span></span><span class="line"><span class="cl"><span class="o">.</span><span class="n">salt_size</span> <span class="o">=</span> <span class="mi">16</span><span class="o">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">//</span><span class="n">line</span> <span class="mi">641</span>
+</span></span><span class="line"><span class="cl"><span class="n">crypto_argon2_inputs</span> <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="o">.</span><span class="k">pass</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="n">uint8_t</span> <span class="o">*</span><span class="p">)</span><span class="n">rresGetCipherPassword</span><span class="p">(),</span> <span class="o">//</span> <span class="n">User</span> <span class="n">password</span>
+</span></span><span class="line"><span class="cl"><span class="o">.</span><span class="n">salt</span> <span class="o">=</span> <span class="n">salt</span><span class="p">,</span> <span class="o">//</span> <span class="n">Salt</span> <span class="k">for</span> <span class="n">the</span> <span class="n">password</span>
+</span></span><span class="line"><span class="cl"><span class="o">.</span><span class="n">pass_size</span> <span class="o">=</span> <span class="p">(</span><span class="n">uint32_t</span><span class="p">)</span><span class="n">strlen</span><span class="p">(</span><span class="n">rresGetCipherPassword</span><span class="p">()),</span> <span class="o">//</span> <span class="n">Password</span> <span class="n">length</span>
+</span></span><span class="line"><span class="cl"><span class="o">.</span><span class="n">salt_size</span> <span class="o">=</span> <span class="mi">16</span><span class="o">|</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">//</span><span class="n">line</span> <span class="mi">669</span>
+</span></span><span class="line"><span class="cl"><span class="ne">int</span> <span class="n">decryptResult</span> <span class="o">=</span> <span class="n">crypto_aead_unlock</span><span class="p">(</span><span class="n">decryptedData</span><span class="p">,</span> <span class="n">mac</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">nonce</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="n">u8</span> <span class="o">*</span><span class="p">)</span><span class="n">chunk</span><span class="o">-&gt;</span><span class="n">data</span><span class="o">.</span><span class="n">raw</span><span class="p">,</span> <span class="p">(</span><span class="n">chunk</span><span class="o">-&gt;</span><span class="n">info</span><span class="o">.</span><span class="n">packedSize</span> <span class="o">-</span> <span class="mi">16</span> <span class="o">-</span> <span class="mi">24</span> <span class="o">-</span> <span class="mi">16</span><span class="p">));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可能是源代码是用c编写的作者，修改后即可兼容 cpp</p>
+<p>测试参考</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1">#include &lt;iostream&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#include &#34;raylib.h&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#define RAYGUI_IMPLEMENTATION</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#define RAYGUI_SUPPORT_ICONS</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#include &#34;raygui.h&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#define RRES_IMPLEMENTATION</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#include &#34;rres.h&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#define RRES_RAYLIB_IMPLEMENTATION</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#define RRES_SUPPORT_COMPRESSION_LZ4</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#define RRES_SUPPORT_ENCRYPTION_AES</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#define RRES_SUPPORT_ENCRYPTION_XCHACHA20</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#include &#34;rres-raylib.h&#34;     // Required to map rres data chunks into raylib </span>
+</span></span><span class="line"><span class="cl"><span class="n">structs</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">#include &lt;conio.h&gt;          // Windows only, no stardard library</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#define KEY_ESCAPE  27</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">unsigned</span> <span class="n">char</span> <span class="o">*</span><span class="n">LoadDataBuffer</span><span class="p">(</span><span class="n">rresResourceChunkData</span> <span class="n">data</span><span class="p">,</span> <span class="n">unsigned</span> <span class="ne">int</span> <span class="n">rawSize</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">void</span> <span class="n">UnloadDataBuffer</span><span class="p">(</span><span class="n">unsigned</span> <span class="n">char</span> <span class="o">*</span><span class="n">buffer</span><span class="p">);</span>   <span class="o">//</span> <span class="n">Unload</span> <span class="n">data</span> <span class="n">buffer</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="ne">int</span> <span class="n">main</span><span class="p">(</span><span class="n">void</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">FILE</span> <span class="o">*</span><span class="n">rresFile</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s2">&#34;Gloomwood.rres&#34;</span><span class="p">,</span> <span class="s2">&#34;wb&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">Define</span> <span class="n">rres</span> <span class="n">file</span> <span class="n">header</span>
+</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">NOTE</span><span class="p">:</span> <span class="n">We</span> <span class="n">are</span> <span class="n">loading</span> <span class="mi">4</span> <span class="n">files</span> <span class="n">that</span> <span class="n">generate</span> <span class="mi">5</span> <span class="n">resource</span> <span class="n">chunks</span> <span class="n">to</span> <span class="n">save</span> <span class="ow">in</span> <span class="n">rres</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rresFileHeader</span> <span class="n">header</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="n">id</span><span class="p">{</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;e&#39;</span><span class="p">,</span><span class="s1">&#39;s&#39;</span><span class="p">},</span>       <span class="o">//</span> <span class="ne">File</span> <span class="n">identifier</span><span class="p">:</span> <span class="n">rres</span>
+</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>         <span class="o">//</span> <span class="ne">File</span> <span class="n">version</span><span class="p">:</span> <span class="mi">100</span> <span class="k">for</span> <span class="n">version</span> <span class="mf">1.0</span>
+</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="n">chunkCount</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>        <span class="o">//</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">resource</span> <span class="n">chunks</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">file</span> <span class="p">(</span><span class="n">MAX</span><span class="p">:</span> <span class="mi">65535</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="n">cdOffset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>          <span class="o">//</span> <span class="n">Central</span> <span class="ne">Directory</span> <span class="n">offset</span> <span class="ow">in</span> <span class="n">file</span> <span class="p">(</span><span class="mi">0</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">available</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="n">reserved</span> <span class="o">=</span> <span class="mi">0</span>           <span class="o">//</span> <span class="o">&lt;</span><span class="n">reserved</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">Write</span> <span class="n">rres</span> <span class="n">file</span> <span class="n">header</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fwrite</span><span class="p">(</span><span class="o">&amp;</span><span class="n">header</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">rresFileHeader</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">rresFile</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rresResourceChunkInfo</span> <span class="n">chunkInfo</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>    <span class="o">//</span> <span class="n">Chunk</span> <span class="n">info</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rresResourceChunkData</span> <span class="n">chunkData</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>    <span class="o">//</span> <span class="n">Chunk</span> <span class="n">data</span>
+</span></span><span class="line"><span class="cl">    <span class="n">unsigned</span> <span class="n">char</span> <span class="o">*</span><span class="n">buffer</span> <span class="o">=</span> <span class="n">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Wave</span> <span class="n">musicAssets</span> <span class="o">=</span> <span class="n">LoadWave</span><span class="p">(</span><span class="s2">&#34;../asset/Gloomwood.wav&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">unsigned</span> <span class="ne">int</span> <span class="n">rawSize</span> <span class="o">=</span> <span class="n">musicAssets</span><span class="o">.</span><span class="n">frameCount</span><span class="o">*</span><span class="n">musicAssets</span><span class="o">.</span><span class="n">channels</span><span class="o">*</span><span class="p">(</span><span class="n">musicAssets</span><span class="o">.</span><span class="n">sampleSize</span><span class="o">/</span><span class="mi">8</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">Define</span> <span class="n">chunk</span> <span class="n">info</span><span class="p">:</span> <span class="n">WAVE</span>
+</span></span><span class="line"><span class="cl">    <span class="n">chunkInfo</span><span class="o">.</span><span class="n">type</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;W&#39;</span><span class="p">;</span>         <span class="o">//</span> <span class="ne">Resource</span> <span class="n">chunk</span> <span class="n">type</span> <span class="p">(</span><span class="n">FourCC</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">chunkInfo</span><span class="o">.</span><span class="n">type</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;A&#39;</span><span class="p">;</span>         <span class="o">//</span> <span class="ne">Resource</span> <span class="n">chunk</span> <span class="n">type</span> <span class="p">(</span><span class="n">FourCC</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">chunkInfo</span><span class="o">.</span><span class="n">type</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;V&#39;</span><span class="p">;</span>         <span class="o">//</span> <span class="ne">Resource</span> <span class="n">chunk</span> <span class="n">type</span> <span class="p">(</span><span class="n">FourCC</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">chunkInfo</span><span class="o">.</span><span class="n">type</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;E&#39;</span><span class="p">;</span>         <span class="o">//</span> <span class="ne">Resource</span> <span class="n">chunk</span> <span class="n">type</span> <span class="p">(</span><span class="n">FourCC</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">//</span><span class="ne">Resource</span> <span class="n">chunk</span> <span class="n">identifier</span> <span class="p">(</span><span class="n">generated</span> <span class="n">from</span> <span class="n">filename</span> <span class="n">CRC32</span> <span class="nb">hash</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">char</span> <span class="n">bufferPath</span><span class="p">[</span><span class="mi">2048</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;../asset/Gloomwood.wav&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">unsigned</span> <span class="n">char</span><span class="o">*</span> <span class="n">path</span> <span class="o">=</span> <span class="n">reinterpret_cast</span><span class="o">&lt;</span><span class="n">unsigned</span> <span class="n">char</span> <span class="o">*&gt;</span><span class="p">(</span><span class="n">bufferPath</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">chunkInfo</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">rresComputeCRC32</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="s2">&#34;../asset/Gloomwood.wav&#34;</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">chunkInfo</span><span class="o">.</span><span class="n">compType</span> <span class="o">=</span> <span class="n">RRES_COMP_NONE</span><span class="p">,</span>     <span class="o">//</span> <span class="n">Data</span> <span class="n">compression</span> <span class="n">algorithm</span>
+</span></span><span class="line"><span class="cl">    <span class="n">chunkInfo</span><span class="o">.</span><span class="n">cipherType</span> <span class="o">=</span> <span class="n">RRES_CIPHER_NONE</span><span class="p">,</span> <span class="o">//</span> <span class="n">Data</span> <span class="n">encription</span> <span class="n">algorithm</span>
+</span></span><span class="line"><span class="cl">    <span class="n">chunkInfo</span><span class="o">.</span><span class="n">flags</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>             <span class="o">//</span> <span class="n">Data</span> <span class="n">flags</span> <span class="p">(</span><span class="k">if</span> <span class="n">required</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">chunkInfo</span><span class="o">.</span><span class="n">baseSize</span> <span class="o">=</span> <span class="mi">5</span><span class="o">*</span><span class="n">sizeof</span><span class="p">(</span><span class="n">unsigned</span> <span class="ne">int</span><span class="p">)</span> <span class="o">+</span> <span class="n">rawSize</span><span class="p">;</span>   <span class="o">//</span> <span class="n">Data</span> <span class="n">base</span> <span class="n">size</span> <span class="p">(</span><span class="n">uncompressed</span><span class="o">/</span><span class="n">unencrypted</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">chunkInfo</span><span class="o">.</span><span class="n">packedSize</span> <span class="o">=</span> <span class="n">chunkInfo</span><span class="o">.</span><span class="n">baseSize</span><span class="p">;</span> <span class="o">//</span> <span class="n">Data</span> <span class="n">chunk</span> <span class="n">size</span> <span class="p">(</span><span class="n">compressed</span><span class="o">/</span><span class="n">encrypted</span> <span class="o">+</span> <span class="n">custom</span> <span class="n">data</span> <span class="n">appended</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">chunkInfo</span><span class="o">.</span><span class="n">nextOffset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>        <span class="o">//</span> <span class="n">Next</span> <span class="n">resource</span> <span class="n">chunk</span> <span class="n">global</span> <span class="n">offset</span> <span class="p">(</span><span class="k">if</span> <span class="n">resource</span> <span class="n">has</span> <span class="n">multiple</span> <span class="n">chunks</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">chunkInfo</span><span class="o">.</span><span class="n">reserved</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>          <span class="o">//</span> <span class="o">&lt;</span><span class="n">reserved</span><span class="o">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">Define</span> <span class="n">chunk</span> <span class="n">data</span><span class="p">:</span> <span class="n">WAVE</span>
+</span></span><span class="line"><span class="cl">    <span class="n">chunkData</span><span class="o">.</span><span class="n">propCount</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">chunkData</span><span class="o">.</span><span class="n">props</span> <span class="o">=</span> <span class="p">(</span><span class="n">unsigned</span> <span class="ne">int</span> <span class="o">*</span><span class="p">)</span><span class="n">RRES_CALLOC</span><span class="p">(</span><span class="n">chunkData</span><span class="o">.</span><span class="n">propCount</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">unsigned</span> <span class="ne">int</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">chunkData</span><span class="o">.</span><span class="n">props</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">musicAssets</span><span class="o">.</span><span class="n">frameCount</span><span class="p">;</span>      <span class="o">//</span> <span class="n">props</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">frameCount</span>
+</span></span><span class="line"><span class="cl">    <span class="n">chunkData</span><span class="o">.</span><span class="n">props</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">musicAssets</span><span class="o">.</span><span class="n">sampleRate</span><span class="p">;</span>      <span class="o">//</span> <span class="n">props</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">sampleRate</span>
+</span></span><span class="line"><span class="cl">    <span class="n">chunkData</span><span class="o">.</span><span class="n">props</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">musicAssets</span><span class="o">.</span><span class="n">sampleSize</span><span class="p">;</span>      <span class="o">//</span> <span class="n">props</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span><span class="n">sampleSize</span>
+</span></span><span class="line"><span class="cl">    <span class="n">chunkData</span><span class="o">.</span><span class="n">props</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">musicAssets</span><span class="o">.</span><span class="n">channels</span><span class="p">;</span>        <span class="o">//</span> <span class="n">props</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span><span class="n">channels</span>    
+</span></span><span class="line"><span class="cl">    <span class="n">chunkData</span><span class="o">.</span><span class="n">raw</span> <span class="o">=</span> <span class="n">musicAssets</span><span class="o">.</span><span class="n">data</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="o">//</span> <span class="n">Get</span> <span class="n">a</span> <span class="n">continuous</span> <span class="n">data</span> <span class="n">buffer</span> <span class="n">from</span> <span class="n">chunkData</span>
+</span></span><span class="line"><span class="cl">    <span class="n">buffer</span> <span class="o">=</span> <span class="n">LoadDataBuffer</span><span class="p">(</span><span class="n">chunkData</span><span class="p">,</span> <span class="n">rawSize</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">Compute</span> <span class="n">data</span> <span class="n">chunk</span> <span class="n">CRC32</span> <span class="p">(</span><span class="n">propCount</span> <span class="o">+</span> <span class="n">props</span><span class="p">[]</span> <span class="o">+</span> <span class="n">data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">chunkInfo</span><span class="o">.</span><span class="n">crc32</span> <span class="o">=</span> <span class="n">rresComputeCRC32</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">chunkInfo</span><span class="o">.</span><span class="n">packedSize</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">Write</span> <span class="n">resource</span> <span class="n">chunk</span> <span class="n">into</span> <span class="n">rres</span> <span class="n">file</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fwrite</span><span class="p">(</span><span class="o">&amp;</span><span class="n">chunkInfo</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">rresResourceChunkInfo</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">rresFile</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">fwrite</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">chunkInfo</span><span class="o">.</span><span class="n">packedSize</span><span class="p">,</span> <span class="n">rresFile</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">Free</span> <span class="n">required</span> <span class="n">memory</span>
+</span></span><span class="line"><span class="cl">    <span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">chunkInfo</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">rresResourceChunkInfo</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">    <span class="n">RRES_FREE</span><span class="p">(</span><span class="n">chunkData</span><span class="o">.</span><span class="n">props</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">UnloadDataBuffer</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">UnloadWave</span><span class="p">(</span><span class="n">musicAssets</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">fclose</span><span class="p">(</span><span class="n">rresFile</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">Sound</span> <span class="n">sound</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>            <span class="o">//</span> <span class="n">Store</span> <span class="n">RRES_DATA_WAVE</span> <span class="n">loaded</span> <span class="n">data</span> <span class="o">-&gt;</span> <span class="n">LoadSoundFromWave</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">Load</span> <span class="n">content</span> <span class="n">from</span> <span class="n">rres</span> <span class="n">file</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rresResourceChunk</span> <span class="n">chunk</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span> <span class="o">//</span> <span class="n">Single</span> <span class="n">resource</span> <span class="n">chunk</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rresResourceMulti</span> <span class="n">multi</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span> <span class="o">//</span> <span class="n">Multiple</span> <span class="n">resource</span> <span class="n">chunks</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="n">unsigned</span> <span class="n">char</span> <span class="n">key</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">InitAudioDevice</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Music</span> <span class="n">music</span> <span class="o">=</span> <span class="n">LoadMusicStream</span><span class="p">(</span><span class="s2">&#34;../asset/kano.mp3&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">PlayMusicStream</span><span class="p">(</span><span class="n">music</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">Press ESC to stop...</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">key</span> <span class="o">!=</span> <span class="n">KEY_ESCAPE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">key</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">_kbhit</span><span class="p">())</span> <span class="n">key</span> <span class="o">=</span> <span class="n">_getch</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">UpdateMusicStream</span><span class="p">(</span><span class="n">music</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">UnloadMusicStream</span><span class="p">(</span><span class="n">music</span><span class="p">);</span>   <span class="o">//</span> <span class="n">Unload</span> <span class="n">music</span> <span class="n">stream</span> <span class="n">data</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">InitWindow</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&#34;Sol plan test&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">SetTargetFPS</span><span class="p">(</span><span class="mi">60</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="ne">bool</span> <span class="n">showMessageBox</span> <span class="o">=</span> <span class="bp">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">WindowShouldClose</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="o">//</span> <span class="n">Draw</span>
+</span></span><span class="line"><span class="cl">        <span class="o">//----------------------------------------------------------------------------------</span>
+</span></span><span class="line"><span class="cl">        <span class="n">BeginDrawing</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">ClearBackground</span><span class="p">(</span><span class="n">GetColor</span><span class="p">(</span><span class="n">GuiGetStyle</span><span class="p">(</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">BACKGROUND_COLOR</span><span class="p">)));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">GuiButton</span><span class="p">((</span><span class="n">Rectangle</span><span class="p">){</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">30</span> <span class="p">},</span> <span class="s2">&#34;#191#Show Message&#34;</span><span class="p">))</span> <span class="n">showMessageBox</span> <span class="o">=</span> <span class="bp">true</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">showMessageBox</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="ne">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">GuiMessageBox</span><span class="p">((</span><span class="n">Rectangle</span><span class="p">){</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">100</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                    <span class="s2">&#34;#191#Message Box&#34;</span><span class="p">,</span> <span class="s2">&#34;Hi! This is SolPlan!&#34;</span><span class="p">,</span> <span class="s2">&#34;just test&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="n">showMessageBox</span> <span class="o">=</span> <span class="bp">false</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">EndDrawing</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">CloseAudioDevice</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">CloseWindow</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">//</span> <span class="n">Load</span> <span class="n">a</span> <span class="n">continuous</span> <span class="n">data</span> <span class="n">buffer</span> <span class="n">from</span> <span class="n">rresResourceChunkData</span> <span class="n">struct</span>
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">unsigned</span> <span class="n">char</span> <span class="o">*</span><span class="n">LoadDataBuffer</span><span class="p">(</span><span class="n">rresResourceChunkData</span> <span class="n">data</span><span class="p">,</span> <span class="n">unsigned</span> <span class="ne">int</span> <span class="n">rawSize</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">unsigned</span> <span class="n">char</span> <span class="o">*</span><span class="n">buffer</span> <span class="o">=</span> <span class="p">(</span><span class="n">unsigned</span> <span class="n">char</span> <span class="o">*</span><span class="p">)</span><span class="n">RRES_CALLOC</span><span class="p">((</span><span class="n">data</span><span class="o">.</span><span class="n">propCount</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">sizeof</span><span class="p">(</span><span class="n">unsigned</span> <span class="ne">int</span><span class="p">)</span> <span class="o">+</span> <span class="n">rawSize</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">memcpy</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">data</span><span class="o">.</span><span class="n">propCount</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">unsigned</span> <span class="ne">int</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="ne">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="n">propCount</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="n">memcpy</span><span class="p">(</span><span class="n">buffer</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">sizeof</span><span class="p">(</span><span class="n">unsigned</span> <span class="ne">int</span><span class="p">),</span> <span class="o">&amp;</span><span class="n">data</span><span class="o">.</span><span class="n">props</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">unsigned</span> <span class="ne">int</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">memcpy</span><span class="p">(</span><span class="n">buffer</span> <span class="o">+</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">propCount</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">sizeof</span><span class="p">(</span><span class="n">unsigned</span> <span class="ne">int</span><span class="p">),</span> <span class="n">data</span><span class="o">.</span><span class="n">raw</span><span class="p">,</span> <span class="n">rawSize</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">buffer</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">//</span> <span class="n">Unload</span> <span class="n">data</span> <span class="n">buffer</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">void</span> <span class="n">UnloadDataBuffer</span><span class="p">(</span><span class="n">unsigned</span> <span class="n">char</span> <span class="o">*</span><span class="n">buffer</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">RRES_FREE</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="build">
+    <a href="#build">#</a>
+    build
+</h4><p>最后在根目录下创建 build 文件夹，在 build 文件夹下启动命令行 ，按顺序输入如下指令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cmake ../ -G&#34;Unix Makefiles&#34;
+</span></span><span class="line"><span class="cl">make
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>-G&quot;Unix Makefiles&quot;  如果是Windows 操作系统下且需要 makefiles 需要加上该语句。运行中可能会受网络影响导致下载失败多试几次即可。如果一切正常应该可以在根目录下看到 bin 文件夹且里面有一个可执行文件，如果可执行文件可正常运行就大功告成了。</p>
+<h3 id="尾">
+    <a href="#%e5%b0%be">#</a>
+    尾
+</h3><p>如果您嫌麻烦可以直接从github 下载我项目 <a class="link" href="https://github.com/IyuMashiro/raylib_raygui_rres_template"  target="_blank" rel="noopener"
+    >https://github.com/IyuMashiro/raylib_raygui_rres_template</a></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/cmake/">Cmake</a>
+        
+            <a href="/tags/raylib/">Raylib</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <script
+    src="https://giscus.app/client.js"
+    data-repo="IyuMashiro/iyumashiro.github.io"
+    data-repo-id="R_kgDOLq4O3A"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOLq4O3M4Cegcv"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    crossorigin="anonymous"
+    async
+></script>
+<script>
+    function setGiscusTheme(theme) {
+        let giscus = document.querySelector("iframe.giscus-frame");
+        if (giscus) {
+            giscus.contentWindow.postMessage(
+                {
+                    giscus: {
+                        setConfig: {
+                            theme: theme,
+                        },
+                    },
+                },
+                "https://giscus.app"
+            );
+        }
+    }
+
+    (function () {
+        addEventListener("message", (e) => {
+            if (event.origin !== "https://giscus.app") return;
+            handler();
+        });
+        window.addEventListener("onColorSchemeChange", handler);
+
+        function handler() {
+            if (document.documentElement.dataset.scheme === "light") {
+                setGiscusTheme('light');
+            } else {
+                setGiscusTheme('dark_dimmed');
+            }
+        }
+    })();
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 iyuMashiro
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.25.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
