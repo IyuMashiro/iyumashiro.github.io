@@ -389,7 +389,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 7 分钟
+                    阅读时长: 3 分钟
                 </time>
             </div>
         
@@ -608,8 +608,8 @@ windows 下的指令为 gcc -v</p>
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">set</span><span class="p">(</span><span class="n">RAYLIB_VERSION</span> <span class="mf">5.5</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="n">find_package</span><span class="p">(</span><span class="n">raylib</span> <span class="o">$</span><span class="p">{</span><span class="n">RAYLIB_VERSION</span><span class="p">}</span> <span class="n">QUIET</span><span class="p">)</span> <span class="c1"># QUIET or REQUIRED</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">NOT</span> <span class="n">raylib_FOUND</span><span class="p">)</span> <span class="c1"># If there&#39;s none, fetch and build raylib</span>
+</span></span><span class="line"><span class="cl"><span class="n">find_package</span><span class="p">(</span><span class="n">raylib</span> <span class="o">$</span><span class="p">{</span><span class="n">RAYLIB_VERSION</span><span class="p">}</span> <span class="n">QUIET</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="n">NOT</span> <span class="n">raylib_FOUND</span><span class="p">)</span> 
 </span></span><span class="line"><span class="cl">  <span class="n">include</span><span class="p">(</span><span class="n">FetchContent</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="n">FetchContent_Declare</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">    <span class="n">raylib</span>
@@ -620,7 +620,7 @@ windows 下的指令为 gcc -v</p>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">NOT</span> <span class="n">raylib_POPULATED</span><span class="p">)</span> <span class="c1"># Have we downloaded raylib yet?</span>
 </span></span><span class="line"><span class="cl">    <span class="n">set</span><span class="p">(</span><span class="n">FETCHCONTENT_QUIET</span> <span class="n">NO</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="n">FetchContent_MakeAvailable</span><span class="p">(</span><span class="n">raylib</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">set</span><span class="p">(</span><span class="n">BUILD_EXAMPLES</span> <span class="n">OFF</span> <span class="n">CACHE</span> <span class="n">BOOL</span> <span class="s2">&#34;&#34;</span> <span class="n">FORCE</span><span class="p">)</span> <span class="c1"># don&#39;t build the supplied examples</span>
+</span></span><span class="line"><span class="cl">    <span class="n">set</span><span class="p">(</span><span class="n">BUILD_EXAMPLES</span> <span class="n">OFF</span> <span class="n">CACHE</span> <span class="n">BOOL</span> <span class="s2">&#34;&#34;</span> <span class="n">FORCE</span><span class="p">)</span> 
 </span></span><span class="line"><span class="cl">  <span class="n">endif</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="n">endif</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
@@ -637,7 +637,7 @@ windows 下的指令为 gcc -v</p>
 </span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="p">(</span><span class="n">NOT</span> <span class="n">raygui_POPULATED</span><span class="p">)</span> <span class="c1"># Have we downloaded raylib yet?</span>
 </span></span><span class="line"><span class="cl">    <span class="n">set</span><span class="p">(</span><span class="n">FETCHCONTENT_QUIET</span> <span class="n">NO</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="n">FetchContent_MakeAvailable</span><span class="p">(</span><span class="n">raygui</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">set</span><span class="p">(</span><span class="n">BUILD_RAYGUI_EXAMPLES</span> <span class="n">OFF</span> <span class="n">CACHE</span> <span class="n">BOOL</span> <span class="s2">&#34;&#34;</span> <span class="n">FORCE</span><span class="p">)</span> <span class="c1"># don&#39;t build the supplied examples</span>
+</span></span><span class="line"><span class="cl">    <span class="n">set</span><span class="p">(</span><span class="n">BUILD_RAYGUI_EXAMPLES</span> <span class="n">OFF</span> <span class="n">CACHE</span> <span class="n">BOOL</span> <span class="s2">&#34;&#34;</span> <span class="n">FORCE</span><span class="p">)</span> 
 </span></span><span class="line"><span class="cl">    <span class="n">add_subdirectory</span><span class="p">(</span><span class="o">$</span><span class="p">{</span><span class="n">raygui_SOURCE_DIR</span><span class="p">}</span><span class="o">/</span><span class="n">projects</span><span class="o">/</span><span class="n">CMake</span> <span class="o">$</span><span class="p">{</span><span class="n">raygui_BINARY_DIR</span><span class="p">})</span>
 </span></span><span class="line"><span class="cl">  <span class="n">endif</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="n">endif</span><span class="p">()</span>
@@ -677,7 +677,7 @@ windows 下的指令为 gcc -v</p>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># Web Configurations</span>
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="p">(</span><span class="o">$</span><span class="p">{</span><span class="n">PLATFORM</span><span class="p">}</span> <span class="n">STREQUAL</span> <span class="s2">&#34;Web&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">set_target_properties</span><span class="p">(</span><span class="o">$</span><span class="p">{</span><span class="n">PROJECT_NAME</span><span class="p">}</span> <span class="n">PROPERTIES</span> <span class="n">SUFFIX</span> <span class="s2">&#34;.html&#34;</span><span class="p">)</span> <span class="c1"># Tell Emscripten to build an example.html file.</span>
+</span></span><span class="line"><span class="cl">    <span class="n">set_target_properties</span><span class="p">(</span><span class="o">$</span><span class="p">{</span><span class="n">PROJECT_NAME</span><span class="p">}</span> <span class="n">PROPERTIES</span> <span class="n">SUFFIX</span> <span class="s2">&#34;.html&#34;</span><span class="p">)</span> 
 </span></span><span class="line"><span class="cl">    <span class="n">set</span><span class="p">(</span><span class="n">CMAKE_EXE_LINKER_FLAGS</span> <span class="s2">&#34;${CMAKE_EXE_LINKER_FLAGS} -s USE_GLFW=3 -s ASSERTIONS=1 -s WASM=1 -s ASYNCIFY -s GL_ENABLE_GET_PROC_ADDRESS=1&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="n">endif</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
@@ -737,350 +737,19 @@ windows 下的指令为 gcc -v</p>
 </span></span><span class="line"><span class="cl"><span class="ne">int</span> <span class="n">decryptResult</span> <span class="o">=</span> <span class="n">crypto_aead_unlock</span><span class="p">(</span><span class="n">decryptedData</span><span class="p">,</span> <span class="n">mac</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">nonce</span><span class="p">,</span> <span class="n">NULL</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="k">const</span> <span class="n">u8</span> <span class="o">*</span><span class="p">)</span><span class="n">chunk</span><span class="o">-&gt;</span><span class="n">data</span><span class="o">.</span><span class="n">raw</span><span class="p">,</span> <span class="p">(</span><span class="n">chunk</span><span class="o">-&gt;</span><span class="n">info</span><span class="o">.</span><span class="n">packedSize</span> <span class="o">-</span> <span class="mi">16</span> <span class="o">-</span> <span class="mi">24</span> <span class="o">-</span> <span class="mi">16</span><span class="p">));</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>可能是源代码是用c编写的作者，修改后即可兼容 cpp</p>
-<p>测试参考</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">  1
-</span><span class="lnt">  2
-</span><span class="lnt">  3
-</span><span class="lnt">  4
-</span><span class="lnt">  5
-</span><span class="lnt">  6
-</span><span class="lnt">  7
-</span><span class="lnt">  8
-</span><span class="lnt">  9
-</span><span class="lnt"> 10
-</span><span class="lnt"> 11
-</span><span class="lnt"> 12
-</span><span class="lnt"> 13
-</span><span class="lnt"> 14
-</span><span class="lnt"> 15
-</span><span class="lnt"> 16
-</span><span class="lnt"> 17
-</span><span class="lnt"> 18
-</span><span class="lnt"> 19
-</span><span class="lnt"> 20
-</span><span class="lnt"> 21
-</span><span class="lnt"> 22
-</span><span class="lnt"> 23
-</span><span class="lnt"> 24
-</span><span class="lnt"> 25
-</span><span class="lnt"> 26
-</span><span class="lnt"> 27
-</span><span class="lnt"> 28
-</span><span class="lnt"> 29
-</span><span class="lnt"> 30
-</span><span class="lnt"> 31
-</span><span class="lnt"> 32
-</span><span class="lnt"> 33
-</span><span class="lnt"> 34
-</span><span class="lnt"> 35
-</span><span class="lnt"> 36
-</span><span class="lnt"> 37
-</span><span class="lnt"> 38
-</span><span class="lnt"> 39
-</span><span class="lnt"> 40
-</span><span class="lnt"> 41
-</span><span class="lnt"> 42
-</span><span class="lnt"> 43
-</span><span class="lnt"> 44
-</span><span class="lnt"> 45
-</span><span class="lnt"> 46
-</span><span class="lnt"> 47
-</span><span class="lnt"> 48
-</span><span class="lnt"> 49
-</span><span class="lnt"> 50
-</span><span class="lnt"> 51
-</span><span class="lnt"> 52
-</span><span class="lnt"> 53
-</span><span class="lnt"> 54
-</span><span class="lnt"> 55
-</span><span class="lnt"> 56
-</span><span class="lnt"> 57
-</span><span class="lnt"> 58
-</span><span class="lnt"> 59
-</span><span class="lnt"> 60
-</span><span class="lnt"> 61
-</span><span class="lnt"> 62
-</span><span class="lnt"> 63
-</span><span class="lnt"> 64
-</span><span class="lnt"> 65
-</span><span class="lnt"> 66
-</span><span class="lnt"> 67
-</span><span class="lnt"> 68
-</span><span class="lnt"> 69
-</span><span class="lnt"> 70
-</span><span class="lnt"> 71
-</span><span class="lnt"> 72
-</span><span class="lnt"> 73
-</span><span class="lnt"> 74
-</span><span class="lnt"> 75
-</span><span class="lnt"> 76
-</span><span class="lnt"> 77
-</span><span class="lnt"> 78
-</span><span class="lnt"> 79
-</span><span class="lnt"> 80
-</span><span class="lnt"> 81
-</span><span class="lnt"> 82
-</span><span class="lnt"> 83
-</span><span class="lnt"> 84
-</span><span class="lnt"> 85
-</span><span class="lnt"> 86
-</span><span class="lnt"> 87
-</span><span class="lnt"> 88
-</span><span class="lnt"> 89
-</span><span class="lnt"> 90
-</span><span class="lnt"> 91
-</span><span class="lnt"> 92
-</span><span class="lnt"> 93
-</span><span class="lnt"> 94
-</span><span class="lnt"> 95
-</span><span class="lnt"> 96
-</span><span class="lnt"> 97
-</span><span class="lnt"> 98
-</span><span class="lnt"> 99
-</span><span class="lnt">100
-</span><span class="lnt">101
-</span><span class="lnt">102
-</span><span class="lnt">103
-</span><span class="lnt">104
-</span><span class="lnt">105
-</span><span class="lnt">106
-</span><span class="lnt">107
-</span><span class="lnt">108
-</span><span class="lnt">109
-</span><span class="lnt">110
-</span><span class="lnt">111
-</span><span class="lnt">112
-</span><span class="lnt">113
-</span><span class="lnt">114
-</span><span class="lnt">115
-</span><span class="lnt">116
-</span><span class="lnt">117
-</span><span class="lnt">118
-</span><span class="lnt">119
-</span><span class="lnt">120
-</span><span class="lnt">121
-</span><span class="lnt">122
-</span><span class="lnt">123
-</span><span class="lnt">124
-</span><span class="lnt">125
-</span><span class="lnt">126
-</span><span class="lnt">127
-</span><span class="lnt">128
-</span><span class="lnt">129
-</span><span class="lnt">130
-</span><span class="lnt">131
-</span><span class="lnt">132
-</span><span class="lnt">133
-</span><span class="lnt">134
-</span><span class="lnt">135
-</span><span class="lnt">136
-</span><span class="lnt">137
-</span><span class="lnt">138
-</span><span class="lnt">139
-</span><span class="lnt">140
-</span><span class="lnt">141
-</span><span class="lnt">142
-</span><span class="lnt">143
-</span><span class="lnt">144
-</span><span class="lnt">145
-</span><span class="lnt">146
-</span><span class="lnt">147
-</span><span class="lnt">148
-</span><span class="lnt">149
-</span><span class="lnt">150
-</span><span class="lnt">151
-</span><span class="lnt">152
-</span><span class="lnt">153
-</span><span class="lnt">154
-</span><span class="lnt">155
-</span><span class="lnt">156
-</span><span class="lnt">157
-</span><span class="lnt">158
-</span><span class="lnt">159
-</span><span class="lnt">160
-</span><span class="lnt">161
-</span><span class="lnt">162
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="c1">#include &lt;iostream&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#include &#34;raylib.h&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#define RAYGUI_IMPLEMENTATION</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#define RAYGUI_SUPPORT_ICONS</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#include &#34;raygui.h&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#define RRES_IMPLEMENTATION</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#include &#34;rres.h&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#define RRES_RAYLIB_IMPLEMENTATION</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#define RRES_SUPPORT_COMPRESSION_LZ4</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#define RRES_SUPPORT_ENCRYPTION_AES</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#define RRES_SUPPORT_ENCRYPTION_XCHACHA20</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#include &#34;rres-raylib.h&#34;     // Required to map rres data chunks into raylib </span>
-</span></span><span class="line"><span class="cl"><span class="n">structs</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">#include &lt;conio.h&gt;          // Windows only, no stardard library</span>
-</span></span><span class="line"><span class="cl"><span class="c1">#define KEY_ESCAPE  27</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">unsigned</span> <span class="n">char</span> <span class="o">*</span><span class="n">LoadDataBuffer</span><span class="p">(</span><span class="n">rresResourceChunkData</span> <span class="n">data</span><span class="p">,</span> <span class="n">unsigned</span> <span class="ne">int</span> <span class="n">rawSize</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">void</span> <span class="n">UnloadDataBuffer</span><span class="p">(</span><span class="n">unsigned</span> <span class="n">char</span> <span class="o">*</span><span class="n">buffer</span><span class="p">);</span>   <span class="o">//</span> <span class="n">Unload</span> <span class="n">data</span> <span class="n">buffer</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="ne">int</span> <span class="n">main</span><span class="p">(</span><span class="n">void</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">FILE</span> <span class="o">*</span><span class="n">rresFile</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s2">&#34;Gloomwood.rres&#34;</span><span class="p">,</span> <span class="s2">&#34;wb&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">Define</span> <span class="n">rres</span> <span class="n">file</span> <span class="n">header</span>
-</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">NOTE</span><span class="p">:</span> <span class="n">We</span> <span class="n">are</span> <span class="n">loading</span> <span class="mi">4</span> <span class="n">files</span> <span class="n">that</span> <span class="n">generate</span> <span class="mi">5</span> <span class="n">resource</span> <span class="n">chunks</span> <span class="n">to</span> <span class="n">save</span> <span class="ow">in</span> <span class="n">rres</span>
-</span></span><span class="line"><span class="cl">    <span class="n">rresFileHeader</span> <span class="n">header</span> <span class="o">=</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="n">id</span><span class="p">{</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">,</span><span class="s1">&#39;e&#39;</span><span class="p">,</span><span class="s1">&#39;s&#39;</span><span class="p">},</span>       <span class="o">//</span> <span class="ne">File</span> <span class="n">identifier</span><span class="p">:</span> <span class="n">rres</span>
-</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="n">version</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>         <span class="o">//</span> <span class="ne">File</span> <span class="n">version</span><span class="p">:</span> <span class="mi">100</span> <span class="k">for</span> <span class="n">version</span> <span class="mf">1.0</span>
-</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="n">chunkCount</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>        <span class="o">//</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">resource</span> <span class="n">chunks</span> <span class="ow">in</span> <span class="n">the</span> <span class="n">file</span> <span class="p">(</span><span class="n">MAX</span><span class="p">:</span> <span class="mi">65535</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="n">cdOffset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>          <span class="o">//</span> <span class="n">Central</span> <span class="ne">Directory</span> <span class="n">offset</span> <span class="ow">in</span> <span class="n">file</span> <span class="p">(</span><span class="mi">0</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">available</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="o">.</span><span class="n">reserved</span> <span class="o">=</span> <span class="mi">0</span>           <span class="o">//</span> <span class="o">&lt;</span><span class="n">reserved</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">};</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">Write</span> <span class="n">rres</span> <span class="n">file</span> <span class="n">header</span>
-</span></span><span class="line"><span class="cl">    <span class="n">fwrite</span><span class="p">(</span><span class="o">&amp;</span><span class="n">header</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">rresFileHeader</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">rresFile</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">rresResourceChunkInfo</span> <span class="n">chunkInfo</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>    <span class="o">//</span> <span class="n">Chunk</span> <span class="n">info</span>
-</span></span><span class="line"><span class="cl">    <span class="n">rresResourceChunkData</span> <span class="n">chunkData</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>    <span class="o">//</span> <span class="n">Chunk</span> <span class="n">data</span>
-</span></span><span class="line"><span class="cl">    <span class="n">unsigned</span> <span class="n">char</span> <span class="o">*</span><span class="n">buffer</span> <span class="o">=</span> <span class="n">NULL</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">Wave</span> <span class="n">musicAssets</span> <span class="o">=</span> <span class="n">LoadWave</span><span class="p">(</span><span class="s2">&#34;../asset/Gloomwood.wav&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">unsigned</span> <span class="ne">int</span> <span class="n">rawSize</span> <span class="o">=</span> <span class="n">musicAssets</span><span class="o">.</span><span class="n">frameCount</span><span class="o">*</span><span class="n">musicAssets</span><span class="o">.</span><span class="n">channels</span><span class="o">*</span><span class="p">(</span><span class="n">musicAssets</span><span class="o">.</span><span class="n">sampleSize</span><span class="o">/</span><span class="mi">8</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">Define</span> <span class="n">chunk</span> <span class="n">info</span><span class="p">:</span> <span class="n">WAVE</span>
-</span></span><span class="line"><span class="cl">    <span class="n">chunkInfo</span><span class="o">.</span><span class="n">type</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;W&#39;</span><span class="p">;</span>         <span class="o">//</span> <span class="ne">Resource</span> <span class="n">chunk</span> <span class="n">type</span> <span class="p">(</span><span class="n">FourCC</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">chunkInfo</span><span class="o">.</span><span class="n">type</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;A&#39;</span><span class="p">;</span>         <span class="o">//</span> <span class="ne">Resource</span> <span class="n">chunk</span> <span class="n">type</span> <span class="p">(</span><span class="n">FourCC</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">chunkInfo</span><span class="o">.</span><span class="n">type</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;V&#39;</span><span class="p">;</span>         <span class="o">//</span> <span class="ne">Resource</span> <span class="n">chunk</span> <span class="n">type</span> <span class="p">(</span><span class="n">FourCC</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">chunkInfo</span><span class="o">.</span><span class="n">type</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;E&#39;</span><span class="p">;</span>         <span class="o">//</span> <span class="ne">Resource</span> <span class="n">chunk</span> <span class="n">type</span> <span class="p">(</span><span class="n">FourCC</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="o">//</span><span class="ne">Resource</span> <span class="n">chunk</span> <span class="n">identifier</span> <span class="p">(</span><span class="n">generated</span> <span class="n">from</span> <span class="n">filename</span> <span class="n">CRC32</span> <span class="nb">hash</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">chunkInfo</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="n">rresComputeCRC32</span><span class="p">(</span><span class="s2">&#34;../asset/Gloomwood.wav&#34;</span><span class="p">,</span> <span class="n">strlen</span><span class="p">(</span><span class="s2">&#34;../asset/Gloomwood.wav&#34;</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">    <span class="n">chunkInfo</span><span class="o">.</span><span class="n">compType</span> <span class="o">=</span> <span class="n">RRES_COMP_NONE</span><span class="p">,</span>     <span class="o">//</span> <span class="n">Data</span> <span class="n">compression</span> <span class="n">algorithm</span>
-</span></span><span class="line"><span class="cl">    <span class="n">chunkInfo</span><span class="o">.</span><span class="n">cipherType</span> <span class="o">=</span> <span class="n">RRES_CIPHER_NONE</span><span class="p">,</span> <span class="o">//</span> <span class="n">Data</span> <span class="n">encription</span> <span class="n">algorithm</span>
-</span></span><span class="line"><span class="cl">    <span class="n">chunkInfo</span><span class="o">.</span><span class="n">flags</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>             <span class="o">//</span> <span class="n">Data</span> <span class="n">flags</span> <span class="p">(</span><span class="k">if</span> <span class="n">required</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">chunkInfo</span><span class="o">.</span><span class="n">baseSize</span> <span class="o">=</span> <span class="mi">5</span><span class="o">*</span><span class="n">sizeof</span><span class="p">(</span><span class="n">unsigned</span> <span class="ne">int</span><span class="p">)</span> <span class="o">+</span> <span class="n">rawSize</span><span class="p">;</span>   <span class="o">//</span> <span class="n">Data</span> <span class="n">base</span> <span class="n">size</span> <span class="p">(</span><span class="n">uncompressed</span><span class="o">/</span><span class="n">unencrypted</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">chunkInfo</span><span class="o">.</span><span class="n">packedSize</span> <span class="o">=</span> <span class="n">chunkInfo</span><span class="o">.</span><span class="n">baseSize</span><span class="p">;</span> <span class="o">//</span> <span class="n">Data</span> <span class="n">chunk</span> <span class="n">size</span> <span class="p">(</span><span class="n">compressed</span><span class="o">/</span><span class="n">encrypted</span> <span class="o">+</span> <span class="n">custom</span> <span class="n">data</span> <span class="n">appended</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">chunkInfo</span><span class="o">.</span><span class="n">nextOffset</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>        <span class="o">//</span> <span class="n">Next</span> <span class="n">resource</span> <span class="n">chunk</span> <span class="n">global</span> <span class="n">offset</span> <span class="p">(</span><span class="k">if</span> <span class="n">resource</span> <span class="n">has</span> <span class="n">multiple</span> <span class="n">chunks</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">chunkInfo</span><span class="o">.</span><span class="n">reserved</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>          <span class="o">//</span> <span class="o">&lt;</span><span class="n">reserved</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">Define</span> <span class="n">chunk</span> <span class="n">data</span><span class="p">:</span> <span class="n">WAVE</span>
-</span></span><span class="line"><span class="cl">    <span class="n">chunkData</span><span class="o">.</span><span class="n">propCount</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">chunkData</span><span class="o">.</span><span class="n">props</span> <span class="o">=</span> <span class="p">(</span><span class="n">unsigned</span> <span class="ne">int</span> <span class="o">*</span><span class="p">)</span><span class="n">RRES_CALLOC</span><span class="p">(</span><span class="n">chunkData</span><span class="o">.</span><span class="n">propCount</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">unsigned</span> <span class="ne">int</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">    <span class="n">chunkData</span><span class="o">.</span><span class="n">props</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">musicAssets</span><span class="o">.</span><span class="n">frameCount</span><span class="p">;</span>      <span class="o">//</span> <span class="n">props</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span><span class="n">frameCount</span>
-</span></span><span class="line"><span class="cl">    <span class="n">chunkData</span><span class="o">.</span><span class="n">props</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">musicAssets</span><span class="o">.</span><span class="n">sampleRate</span><span class="p">;</span>      <span class="o">//</span> <span class="n">props</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span><span class="n">sampleRate</span>
-</span></span><span class="line"><span class="cl">    <span class="n">chunkData</span><span class="o">.</span><span class="n">props</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">musicAssets</span><span class="o">.</span><span class="n">sampleSize</span><span class="p">;</span>      <span class="o">//</span> <span class="n">props</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span><span class="n">sampleSize</span>
-</span></span><span class="line"><span class="cl">    <span class="n">chunkData</span><span class="o">.</span><span class="n">props</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">musicAssets</span><span class="o">.</span><span class="n">channels</span><span class="p">;</span>        <span class="o">//</span> <span class="n">props</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span><span class="n">channels</span>    
-</span></span><span class="line"><span class="cl">    <span class="n">chunkData</span><span class="o">.</span><span class="n">raw</span> <span class="o">=</span> <span class="n">musicAssets</span><span class="o">.</span><span class="n">data</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">     <span class="o">//</span> <span class="n">Get</span> <span class="n">a</span> <span class="n">continuous</span> <span class="n">data</span> <span class="n">buffer</span> <span class="n">from</span> <span class="n">chunkData</span>
-</span></span><span class="line"><span class="cl">    <span class="n">buffer</span> <span class="o">=</span> <span class="n">LoadDataBuffer</span><span class="p">(</span><span class="n">chunkData</span><span class="p">,</span> <span class="n">rawSize</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    
-</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">Compute</span> <span class="n">data</span> <span class="n">chunk</span> <span class="n">CRC32</span> <span class="p">(</span><span class="n">propCount</span> <span class="o">+</span> <span class="n">props</span><span class="p">[]</span> <span class="o">+</span> <span class="n">data</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="o">//</span><span class="n">chunkInfo</span><span class="o">.</span><span class="n">crc32</span> <span class="o">=</span> <span class="n">rresComputeCRC32</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="n">chunkInfo</span><span class="o">.</span><span class="n">packedSize</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">Write</span> <span class="n">resource</span> <span class="n">chunk</span> <span class="n">into</span> <span class="n">rres</span> <span class="n">file</span>
-</span></span><span class="line"><span class="cl">    <span class="n">fwrite</span><span class="p">(</span><span class="o">&amp;</span><span class="n">chunkInfo</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">rresResourceChunkInfo</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="n">rresFile</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">fwrite</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">chunkInfo</span><span class="o">.</span><span class="n">packedSize</span><span class="p">,</span> <span class="n">rresFile</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">Free</span> <span class="n">required</span> <span class="n">memory</span>
-</span></span><span class="line"><span class="cl">    <span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">chunkInfo</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">rresResourceChunkInfo</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">    <span class="n">RRES_FREE</span><span class="p">(</span><span class="n">chunkData</span><span class="o">.</span><span class="n">props</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">UnloadDataBuffer</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">UnloadWave</span><span class="p">(</span><span class="n">musicAssets</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">fclose</span><span class="p">(</span><span class="n">rresFile</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    
-</span></span><span class="line"><span class="cl">    <span class="n">Sound</span> <span class="n">sound</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span>            <span class="o">//</span> <span class="n">Store</span> <span class="n">RRES_DATA_WAVE</span> <span class="n">loaded</span> <span class="n">data</span> <span class="o">-&gt;</span> <span class="n">LoadSoundFromWave</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="o">//</span> <span class="n">Load</span> <span class="n">content</span> <span class="n">from</span> <span class="n">rres</span> <span class="n">file</span>
-</span></span><span class="line"><span class="cl">    <span class="n">rresResourceChunk</span> <span class="n">chunk</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span> <span class="o">//</span> <span class="n">Single</span> <span class="n">resource</span> <span class="n">chunk</span>
-</span></span><span class="line"><span class="cl">    <span class="n">rresResourceMulti</span> <span class="n">multi</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span> <span class="p">};</span> <span class="o">//</span> <span class="n">Multiple</span> <span class="n">resource</span> <span class="n">chunks</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">static</span> <span class="n">unsigned</span> <span class="n">char</span> <span class="n">key</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">InitAudioDevice</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="n">Music</span> <span class="n">music</span> <span class="o">=</span> <span class="n">LoadMusicStream</span><span class="p">(</span><span class="s2">&#34;../asset/kano.mp3&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">PlayMusicStream</span><span class="p">(</span><span class="n">music</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">printf</span><span class="p">(</span><span class="s2">&#34;</span><span class="se">\n</span><span class="s2">Press ESC to stop...</span><span class="se">\n</span><span class="s2">&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="n">key</span> <span class="o">!=</span> <span class="n">KEY_ESCAPE</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="n">key</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">_kbhit</span><span class="p">())</span> <span class="n">key</span> <span class="o">=</span> <span class="n">_getch</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">            <span class="n">UpdateMusicStream</span><span class="p">(</span><span class="n">music</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">UnloadMusicStream</span><span class="p">(</span><span class="n">music</span><span class="p">);</span>   <span class="o">//</span> <span class="n">Unload</span> <span class="n">music</span> <span class="n">stream</span> <span class="n">data</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">InitWindow</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&#34;Sol plan test&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="n">SetTargetFPS</span><span class="p">(</span><span class="mi">60</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="ne">bool</span> <span class="n">showMessageBox</span> <span class="o">=</span> <span class="bp">false</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">WindowShouldClose</span><span class="p">())</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="o">//</span> <span class="n">Draw</span>
-</span></span><span class="line"><span class="cl">        <span class="o">//----------------------------------------------------------------------------------</span>
-</span></span><span class="line"><span class="cl">        <span class="n">BeginDrawing</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="n">ClearBackground</span><span class="p">(</span><span class="n">GetColor</span><span class="p">(</span><span class="n">GuiGetStyle</span><span class="p">(</span><span class="n">DEFAULT</span><span class="p">,</span> <span class="n">BACKGROUND_COLOR</span><span class="p">)));</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">GuiButton</span><span class="p">((</span><span class="n">Rectangle</span><span class="p">){</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">30</span> <span class="p">},</span> <span class="s2">&#34;#191#Show Message&#34;</span><span class="p">))</span> <span class="n">showMessageBox</span> <span class="o">=</span> <span class="bp">true</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">showMessageBox</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="p">{</span>
-</span></span><span class="line"><span class="cl">                <span class="ne">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">GuiMessageBox</span><span class="p">((</span><span class="n">Rectangle</span><span class="p">){</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">100</span> <span class="p">},</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">                    <span class="s2">&#34;#191#Message Box&#34;</span><span class="p">,</span> <span class="s2">&#34;Hi! This is SolPlan!&#34;</span><span class="p">,</span> <span class="s2">&#34;just test&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="n">showMessageBox</span> <span class="o">=</span> <span class="bp">false</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">            <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="n">EndDrawing</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">CloseAudioDevice</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="n">CloseWindow</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">//</span> <span class="n">Load</span> <span class="n">a</span> <span class="n">continuous</span> <span class="n">data</span> <span class="n">buffer</span> <span class="n">from</span> <span class="n">rresResourceChunkData</span> <span class="n">struct</span>
-</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">unsigned</span> <span class="n">char</span> <span class="o">*</span><span class="n">LoadDataBuffer</span><span class="p">(</span><span class="n">rresResourceChunkData</span> <span class="n">data</span><span class="p">,</span> <span class="n">unsigned</span> <span class="ne">int</span> <span class="n">rawSize</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">unsigned</span> <span class="n">char</span> <span class="o">*</span><span class="n">buffer</span> <span class="o">=</span> <span class="p">(</span><span class="n">unsigned</span> <span class="n">char</span> <span class="o">*</span><span class="p">)</span><span class="n">RRES_CALLOC</span><span class="p">((</span><span class="n">data</span><span class="o">.</span><span class="n">propCount</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">sizeof</span><span class="p">(</span><span class="n">unsigned</span> <span class="ne">int</span><span class="p">)</span> <span class="o">+</span> <span class="n">rawSize</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">memcpy</span><span class="p">(</span><span class="n">buffer</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">data</span><span class="o">.</span><span class="n">propCount</span><span class="p">,</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">unsigned</span> <span class="ne">int</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="ne">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">data</span><span class="o">.</span><span class="n">propCount</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="n">memcpy</span><span class="p">(</span><span class="n">buffer</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">sizeof</span><span class="p">(</span><span class="n">unsigned</span> <span class="ne">int</span><span class="p">),</span> <span class="o">&amp;</span><span class="n">data</span><span class="o">.</span><span class="n">props</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">sizeof</span><span class="p">(</span><span class="n">unsigned</span> <span class="ne">int</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">memcpy</span><span class="p">(</span><span class="n">buffer</span> <span class="o">+</span> <span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">propCount</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">sizeof</span><span class="p">(</span><span class="n">unsigned</span> <span class="ne">int</span><span class="p">),</span> <span class="n">data</span><span class="o">.</span><span class="n">raw</span><span class="p">,</span> <span class="n">rawSize</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">buffer</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">//</span> <span class="n">Unload</span> <span class="n">data</span> <span class="n">buffer</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">static</span> <span class="n">void</span> <span class="n">UnloadDataBuffer</span><span class="p">(</span><span class="n">unsigned</span> <span class="n">char</span> <span class="o">*</span><span class="n">buffer</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">RRES_FREE</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h4 id="build">
+</div><p>可能是源代码是用c编写的作者，我已经在githut提交了pull request。作者已经同意合并，新版本的rres不会在出现此问题</p>
+<h4 id="build">
     <a href="#build">#</a>
     build
-</h4><p>最后在根目录下创建 build 文件夹，在 build 文件夹下启动命令行 ，按顺序输入如下指令</p>
+</h4><p>最后在根目录下创建 build 文件夹，在 build 文件夹下启动命令行 ，按顺序输入如下指令(./ 根据你项目实际路径而定)</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cmake ../ -G&#34;Unix Makefiles&#34;
-</span></span><span class="line"><span class="cl">make
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cmake ./
+</span></span><span class="line"><span class="cl">cmake --build ./
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>-G&quot;Unix Makefiles&quot;  如果是Windows 操作系统下且需要 makefiles 需要加上该语句。运行中可能会受网络影响导致下载失败多试几次即可。如果一切正常应该可以在根目录下看到 bin 文件夹且里面有一个可执行文件，如果可执行文件可正常运行就大功告成了。</p>
